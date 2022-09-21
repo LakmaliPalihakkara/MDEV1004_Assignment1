@@ -1,0 +1,15 @@
+.top_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#title{
+    border-color: black;
+    border-width: 3px;
+    border-style: inset;
+    width: 40%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
