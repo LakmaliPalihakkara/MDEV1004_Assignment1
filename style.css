@@ -1,15 +1,64 @@
-.top_title{
+.top-title{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 10px;
 }
 
 #title{
     border-color: black;
-    border-width: 3px;
+    border-width: 2px;
     border-style: inset;
     width: 40%;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    padding: 10px;
+  }
+
+  #img{
+    width: 200px;
+    height: 200px;
+  }
+
+  #name{
+    border-color: black;
+    border-width: 2px;
+    border-style: inset;
+    width: 40%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    margin-left: 45px;
+    margin-bottom: 20px;
+}
+
+.specs-abilities-container {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+.raw-container {
+    display: grid;
+    grid-template-columns: 115px 100px;
+  }
+
+  .data-container{
+    border-color: black;
+    border-width: 2px;
+    border-style: inset;
+    width: 75%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    margin-left: 45px;
+}
+
+.grid-item{
+    margin: 0;
 }
