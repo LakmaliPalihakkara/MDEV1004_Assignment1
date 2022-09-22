@@ -5,47 +5,49 @@
     </head>
         <body>
             <div class = "top-title">
-                <h2 id="title">Pokemone Database</h2>
+                <h2 id="title">Pokemon Database</h2>
             </div>
 
             <div class="grid-container">
-                <div class="grid-item">
-                    <img id="img" src="images/squirtle.png" alt="Squirtle image">
+                <div onclick="showHidePanel('img1')" class="grid-item">
+                    <img id="img1" class="img" src="images/squirtle.png" alt="Squirtle image">
                     <p id="name">Squirtle</p>
                 </div>
 
-                <div class="grid-item">
-                    <img id="img" src="images/wortortle.png" alt="Wortortle image">
+                <div onclick="showHidePanel('img2')" class="grid-item">
+                    <img id="img2" class="img" src="images/wortortle.png" alt="Wortortle image">
                     <p id="name">Wortortle</p>
                 </div>
 
-                <div class="grid-item">
-                    <img id="img" src="images/charmander.png" alt="charmander image">
+                <div onclick="showHidePanel('img3')"  class="grid-item">
+                    <img id="img3" class="img" src="images/charmander.png" alt="charmander image">
                     <p id="name">Charmander</p>
                 </div>
 
-                <div class="grid-item">
-                    <img id="img" src="images/rattata.png" alt="Rattata image">
+                <div onclick="showHidePanel('img4')" class="grid-item">
+                    <img id="img4" class="img" src="images/rattata.png" alt="Rattata image">
                     <p id="name">Rattata</p>
                 </div>
 
-                <div class="grid-item">
-                    <img id="img" src="images/weedle.png" alt="weedle image">
+                <div onclick="showHidePanel('img5')" class="grid-item">
+                    <img id="img5" class="img" src="images/weedle.png" alt="weedle image">
                     <p id="name">Weedle</p>
                 </div>
             </div>
 
 
+            <div id="info-panel">
             <div class="specs-abilities-container">
-                <div class="grid-item">
-                    <p id="name">Specs</p>
+                <div class="specs-abilities-title-container">
+                    <p id="name"><b>Specs</b></p>
                 </div>
 
-                <div class="grid-item">
-                    <p id="name">Abilities</p>
+                <div class="specs-abilities-title-container">
+                    <p id="name"><b>Abilities</b></p>
                 </div>
             </div>
 
+            <!-- Specs Container -->
             <div class="specs-abilities-container">
                 <div class="data-container">
                     <div class="raw-container">
@@ -89,6 +91,8 @@
                     </div>
                 </div>
 
+
+                <!-- Abilities Container -->
                 <div class="data-container">
                     <div class="raw-container">
                         <div class="grid-item">
@@ -130,8 +134,85 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
-        </body>
+        </div>
+
+
+
+    <script>
+            
+        function showHidePanel(id) {
+
+            let window = document.getElementById("info-panel");
+
+            if(window.style.display == "block" )
+            {
+   
+                window.style.display = "none";
+                document.getElementById("img1").style.border = "none";
+                document.getElementById("img2").style.border = "none";
+                document.getElementById("img3").style.border = "none";
+                document.getElementById("img4").style.border = "none";
+                document.getElementById("img5").style.border = "none";
+
+            }
+            else
+            {
+            
+                window.style.display = "block";
+        
+
+            if(id== "img1")
+            {
+              
+                document.getElementById("img1").style.border = "thick solid #66a0b3";
+                document.getElementById("img2").style.border = "none";
+                document.getElementById("img3").style.border = "none";
+                document.getElementById("img4").style.border = "none";
+                document.getElementById("img5").style.border = "none";
+            }
+            else if(id == 'img2')
+            {
+                document.getElementById("img1").style.border = "none";
+                document.getElementById("img2").style.border = "thick solid #aebddb";
+                document.getElementById("img3").style.border = "none";
+                document.getElementById("img4").style.border = "none";
+                document.getElementById("img5").style.border = "none";
+            }
+
+            else if(id == 'img3')
+            {
+                document.getElementById("img1").style.border = "none";
+                document.getElementById("img2").style.border = "none";
+                document.getElementById("img3").style.border = "thick solid #f17a39";
+                document.getElementById("img4").style.border = "none";
+                document.getElementById("img5").style.border = "none";
+            }
+
+            else if(id == 'img4')
+            {
+                document.getElementById("img1").style.border = "none";
+                document.getElementById("img2").style.border = "none";
+                document.getElementById("img3").style.border = "none";
+                document.getElementById("img4").style.border = "thick solid #9e81aa";
+                document.getElementById("img5").style.border = "none";
+            }
+
+            else if(id == 'img5')
+            {
+                document.getElementById("img1").style.border = "none";
+                document.getElementById("img2").style.border = "none";
+                document.getElementById("img3").style.border = "none";
+                document.getElementById("img4").style.border = "none";
+                document.getElementById("img5").style.border = "thick solid #f2c968";
+            }
+            }            
+        }
+        
+    </script>
+
+    </body>
     
 </html>
