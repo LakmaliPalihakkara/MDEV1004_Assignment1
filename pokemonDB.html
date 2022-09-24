@@ -16,7 +16,9 @@
           src="images/squirtle.png"
           alt="Squirtle image"
         />
-        <p id="name">Squirtle</p>
+
+        <p class="name" id="name-squirtle"></p>
+
       </div>
 
       <div onclick="showHidePanel('img2')" class="grid-item">
@@ -26,7 +28,9 @@
           src="images/wortortle.png"
           alt="Wortortle image"
         />
-        <p id="name">Wortortle</p>
+
+        <p class="name" id="name-wortortle"></p>
+
       </div>
 
       <div onclick="showHidePanel('img3')" class="grid-item">
@@ -36,7 +40,9 @@
           src="images/charmander.png"
           alt="charmander image"
         />
-        <p id="name">Charmander</p>
+
+        <p class="name" id="name-charmander"></p>
+
       </div>
 
       <div onclick="showHidePanel('img4')" class="grid-item">
@@ -46,12 +52,15 @@
           src="images/rattata.png"
           alt="Rattata image"
         />
-        <p id="name">Rattata</p>
+
+        <p class="name" id="name-rattata"></p>
+
       </div>
 
       <div onclick="showHidePanel('img5')" class="grid-item">
         <img id="img5" class="img" src="images/weedle.png" alt="weedle image" />
-        <p id="name">Weedle</p>
+
+        <p class="name" id="name-weedle"></p>
       </div>
     </div>
 
@@ -155,6 +164,36 @@
       </div>
     </div>
     <script>
+
+window.onload = function() {
+    
+    if(document.getElementsByTagName("img")[0].id == "img1")
+    {
+        populateSpecifications("squirtle","name-squirtle");
+    }
+
+    if(document.getElementsByTagName("img")[1].id == "img2")
+    {
+        populateSpecifications("wartortle", "name-wortortle");
+    }
+
+    if(document.getElementsByTagName("img")[2].id == "img3")
+    {
+        populateSpecifications("charmander", "name-charmander");
+    }
+
+    if(document.getElementsByTagName("img")[3].id == "img4")
+    {
+        populateSpecifications("rattata", "name-rattata");
+    }
+
+    if(document.getElementsByTagName("img")[4].id == "img5")
+    {
+        populateSpecifications("weedle", "name-weedle");
+    }
+}
+
+
       async function getSpecifications(url) {
         const response = await fetch(url);
         const data = await response.json();
@@ -171,13 +210,17 @@
         document.getElementById("base-exp-value").textContent =
           ": " + data.base_experience;
       }
-      async function populateSpecifications(name) {
+
+      async function populateSpecifications(name, id) {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon");
         const data = await response.json();
         var url;
         for (const position of data.results) {
           if (position.name == name) {
             url = position.url;
+
+            document.getElementById(id).textContent = position.name;
+
             document.getElementById("name-value").textContent =
               ": " + position.name;
             break;
@@ -195,6 +238,8 @@
           document.getElementById("img3").style.border = "none";
           document.getElementById("img4").style.border = "none";
           document.getElementById("img5").style.border = "none";
+
+          onClick = false;
         } else {
           window.style.display = "block";
           if (id == "img1") {
@@ -204,7 +249,8 @@
             document.getElementById("img3").style.border = "none";
             document.getElementById("img4").style.border = "none";
             document.getElementById("img5").style.border = "none";
-            populateSpecifications("squirtle");
+            populateSpecifications("squirtle","name-squirtle");
+
           } else if (id == "img2") {
             document.getElementById("img1").style.border = "none";
             document.getElementById("img2").style.border =
@@ -212,7 +258,8 @@
             document.getElementById("img3").style.border = "none";
             document.getElementById("img4").style.border = "none";
             document.getElementById("img5").style.border = "none";
-            populateSpecifications("wartortle");
+            populateSpecifications("wartortle", "name-wortortle");
+
           } else if (id == "img3") {
             document.getElementById("img1").style.border = "none";
             document.getElementById("img2").style.border = "none";
@@ -220,14 +267,16 @@
               "thick solid #f17a39";
             document.getElementById("img4").style.border = "none";
             document.getElementById("img5").style.border = "none";
-            populateSpecifications("charmander");
+
+            populateSpecifications("charmander","name-charmander");
           } else if (id == "img4") {
             document.getElementById("img1").style.border = "none";
             document.getElementById("img2").style.border = "none";
             document.getElementById("img3").style.border = "none";
             document.getElementById("img4").style.border =
               "thick solid #9e81aa";
-            populateSpecifications("rattata");
+            populateSpecifications("rattata", "name-rattata");
+
             document.getElementById("img5").style.border = "none";
           } else if (id == "img5") {
             document.getElementById("img1").style.border = "none";
@@ -236,7 +285,7 @@
             document.getElementById("img4").style.border = "none";
             document.getElementById("img5").style.border =
               "thick solid #f2c968";
-            populateSpecifications("weedle");
+            populateSpecifications("weedle", "name-weedle");
           }
         }
       }
