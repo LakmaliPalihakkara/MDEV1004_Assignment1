@@ -57,7 +57,7 @@
     border-color: black;
     border-width: 2px;
     border-style: inset;
-    width: 75%;
+    width: 60%;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
@@ -65,9 +65,24 @@
     vertical-align:top
 }
 
-#info-panel{
+#specs{
     display: none;
     
+}
+
+#ability{
+  display: none;
+  
+}
+
+#title-specs{
+  display: none;
+  
+}
+
+#title-ability{
+display: none;
+
 }
 
 .specs-abilities-title-container{
