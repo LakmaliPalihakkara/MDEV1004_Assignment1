@@ -18,7 +18,6 @@
         />
 
         <p class="name" id="name-squirtle"></p>
-
       </div>
 
       <div onclick="showHidePanel('img2')" class="grid-item">
@@ -30,7 +29,6 @@
         />
 
         <p class="name" id="name-wortortle"></p>
-
       </div>
 
       <div onclick="showHidePanel('img3')" class="grid-item">
@@ -42,7 +40,6 @@
         />
 
         <p class="name" id="name-charmander"></p>
-
       </div>
 
       <div onclick="showHidePanel('img4')" class="grid-item">
@@ -54,7 +51,6 @@
         />
 
         <p class="name" id="name-rattata"></p>
-
       </div>
 
       <div onclick="showHidePanel('img5')" class="grid-item">
@@ -74,10 +70,12 @@
           <p id="title-ability"><b>Abilities</b></p>
         </div>
       </div>
+      <p id="selected-pokemon" hidden></p>
+      <p id="selected-ability" hidden></p>
 
       <!-- Specs Container -->
       <div class="specs-abilities-container">
-        <div  id="specs" class="data-container">
+        <div id="specs" class="data-container">
           <div class="raw-container">
             <div class="grid-item">
               <p>Name:</p>
@@ -95,6 +93,7 @@
 
             <div class="grid-item">
               <p id="abilities-value" onclick="showHideAbility()">:</p>
+              <p id="ability-list"></p>
             </div>
           </div>
 
@@ -164,47 +163,78 @@
       </div>
     </div>
     <script>
+      window.onload = function () {
+        if (document.getElementsByTagName("img")[0].id == "img1") {
+          populateSpecifications("squirtle", "name-squirtle");
+        }
 
-window.onload = function() {
-    
-    if(document.getElementsByTagName("img")[0].id == "img1")
-    {
-        populateSpecifications("squirtle","name-squirtle");
-    }
+        if (document.getElementsByTagName("img")[1].id == "img2") {
+          populateSpecifications("wartortle", "name-wortortle");
+        }
 
-    if(document.getElementsByTagName("img")[1].id == "img2")
-    {
-        populateSpecifications("wartortle", "name-wortortle");
-    }
+        if (document.getElementsByTagName("img")[2].id == "img3") {
+          populateSpecifications("charmander", "name-charmander");
+        }
 
-    if(document.getElementsByTagName("img")[2].id == "img3")
-    {
-        populateSpecifications("charmander", "name-charmander");
-    }
+        if (document.getElementsByTagName("img")[3].id == "img4") {
+          populateSpecifications("rattata", "name-rattata");
+        }
 
-    if(document.getElementsByTagName("img")[3].id == "img4")
-    {
-        populateSpecifications("rattata", "name-rattata");
-    }
+        if (document.getElementsByTagName("img")[4].id == "img5") {
+          populateSpecifications("weedle", "name-weedle");
+        }
+      };
+      async function getAttributes(id, name) {
+        const response = await fetch(id);
+        const data = await response.json();
+        var pokemon_name =
+          document.getElementById("selected-pokemon").textContent;
+        document.getElementById("ability-name-value").textContent = name;
 
-    if(document.getElementsByTagName("img")[4].id == "img5")
-    {
-        populateSpecifications("weedle", "name-weedle");
-    }
-}
-
+        for (const entries of data.effect_entries) {
+          var lang = entries.language.name;
+          if (lang == "en") {
+            document.getElementById("ability-effect-value").textContent =
+              entries.effect;
+            document.getElementById("short-effect-value").textContent =
+              entries.short_effect;
+            break;
+          }
+        }
+        for (const flavor_entries of data.flavor_text_entries) {
+          if (
+            flavor_entries.language.name == "en" &&
+            flavor_entries.version_group.name == pokemon_name
+          );
+          {
+            document.getElementById("flavour-text-value").textContent =
+              flavor_entries.flavor_text;
+            break;
+          }
+        }
+      }
 
       async function getSpecifications(url) {
         const response = await fetch(url);
         const data = await response.json();
         var ability = "";
+        document.getElementById("abilities-value").textContent = ": ";
+        var ability_list = document.getElementById("abilities-value");
         for (const position of data.abilities) {
-          if (ability != "") {
-            ability = ability + ", ";
+          if (ability_list.innerHTML != ": ") {
+            ability_list.innerHTML = ability_list.innerHTML + ", ";
           }
-          ability = ability + position.ability.name;
+          ability_list.innerHTML +=
+            "<a href= '#'" +
+            "onClick= 'getAttributes(id,name)'" +
+            "id='" +
+            position.ability.url +
+            "'name='" +
+            position.ability.name +
+            "'>" +
+            position.ability.name +
+            "</a>";
         }
-        document.getElementById("abilities-value").textContent = ": " + ability;
         document.getElementById("height-value").textContent =
           ": " + data.height;
         document.getElementById("base-exp-value").textContent =
@@ -223,6 +253,8 @@ window.onload = function() {
 
             document.getElementById("name-value").textContent =
               ": " + position.name;
+            document.getElementById("selected-pokemon").textContent =
+              position.name;
             break;
           }
         }
@@ -230,8 +262,6 @@ window.onload = function() {
       }
 
       function showHidePanel(id) {
-    
-
         let window = document.getElementById("specs");
         let windowAbility = document.getElementById("ability");
         let titleSpecs = document.getElementById("title-specs");
@@ -252,9 +282,7 @@ window.onload = function() {
           onClick = false;
         } else {
           window.style.display = "block";
-          titleSpecs.style.display = 'block';
-    
-       
+          titleSpecs.style.display = "block";
 
           if (id == "img1") {
             document.getElementById("img1").style.border =
@@ -263,8 +291,7 @@ window.onload = function() {
             document.getElementById("img3").style.border = "none";
             document.getElementById("img4").style.border = "none";
             document.getElementById("img5").style.border = "none";
-            populateSpecifications("squirtle","name-squirtle");
-
+            populateSpecifications("squirtle", "name-squirtle");
           } else if (id == "img2") {
             document.getElementById("img1").style.border = "none";
             document.getElementById("img2").style.border =
@@ -273,7 +300,6 @@ window.onload = function() {
             document.getElementById("img4").style.border = "none";
             document.getElementById("img5").style.border = "none";
             populateSpecifications("wartortle", "name-wortortle");
-
           } else if (id == "img3") {
             document.getElementById("img1").style.border = "none";
             document.getElementById("img2").style.border = "none";
@@ -282,7 +308,7 @@ window.onload = function() {
             document.getElementById("img4").style.border = "none";
             document.getElementById("img5").style.border = "none";
 
-            populateSpecifications("charmander","name-charmander");
+            populateSpecifications("charmander", "name-charmander");
           } else if (id == "img4") {
             document.getElementById("img1").style.border = "none";
             document.getElementById("img2").style.border = "none";
@@ -305,24 +331,17 @@ window.onload = function() {
       }
 
       function showHideAbility() {
-
         let window = document.getElementById("ability");
         let titleAbility = document.getElementById("title-ability");
 
         if (window.style.display == "block") {
-            window.style.display = "none";
-            titleAbility.style.display = "none"
+          window.style.display = "none";
+          titleAbility.style.display = "none";
+        } else {
+          window.style.display = "block";
+          titleAbility.style.display = "block";
         }
-        else
-        {
-            window.style.display = "block";
-            titleAbility.style.display = "block"
-        }
-
-      
-
-}
-
+      }
     </script>
   </body>
 </html>
