@@ -47,17 +47,17 @@
 
 .raw-container {
     display: grid;
-    grid-template-columns: 115px 100px;
+    grid-template-columns: 115px 300px;
     text-align: left;
     padding-left: 15px;
-    padding-right: 15px;
+   
   }
 
 .data-container{
     border-color: black;
     border-width: 2px;
     border-style: inset;
-    width: 60%;
+    width: 70%;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
